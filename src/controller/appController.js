@@ -32,7 +32,20 @@ export const controller = {
                 todoView.clearTodos();
                 const todos = currentProject.getAllTodos();
                 todoView.renderTodos(todos);
+            } else if (e.target.closest(".list-projectName")) {
+                const currentProject = appModel.getCurrentProject();
+                const projectClicked = e.target.closest(".list-projectName");
+                const projectClickedID = projectClicked.dataset.id;
+                console.log(currentProject.id);
+                console.log(projectClickedID);
+                appModel.switchProject(projectClickedID);
+                todoView.clearTodos();
+                const newProject = appModel.getCurrentProject();
+                const todos = newProject.getAllTodos();
+                todoView.renderTodos(todos);
+                    
             }
-        })
+            
+        });
     }
 }

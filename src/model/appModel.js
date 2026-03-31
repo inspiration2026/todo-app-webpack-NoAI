@@ -23,6 +23,10 @@ export const appModel = {
         return currentProject;
     },
 
+    switchProject (projectID) {
+        this.currentProjectID = projectID;
+    },
+
     getAllProjects () {
         return this.projects;
     },

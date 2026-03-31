@@ -54,3 +54,10 @@ main {
     gap: 10px;
 
 }
+.list-projectName {
+    font-size: 20px;
+    cursor: pointer;
+}
+.addTodo-form-container {
+    display: none;
+}

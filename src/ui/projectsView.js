@@ -3,10 +3,16 @@ export const projectsView = {
 
     renderProjects (projects) {
         projects.forEach(element => {
-            const namePro = document.createElement("li");
-            namePro.classList.add ("list-projectName");
-            namePro.textContent = element.projectName;
-            this.projectContainer.appendChild(namePro);
+            const projectName = document.createElement("li");
+            projectName.classList.add ("list-projectName");
+            projectName.textContent = element.projectName;
+            projectName.dataset.id = element.id;
+            this.projectContainer.appendChild(projectName);
         });
+    },
+
+    clearProjectTab () {
+        this.projectContainer.innerHTML = '';
     }
+    
 }
