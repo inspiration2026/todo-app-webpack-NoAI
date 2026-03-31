@@ -23,6 +23,10 @@ export const appModel = {
         return currentProject;
     },
 
+    getAllProjects () {
+        return this.projects;
+    },
+
     deleteProject (projectID) {
         const index = this.projects.findIndex ( item => item.id === projectID);
         console.log (index);
@@ -34,15 +38,15 @@ export const appModel = {
 
 
 
-const pro = appModel.addProject("namePro");
-const curr = appModel.getCurrentProject();
-curr.addTodo("Test Todo", "This is a test", "2026-04-05", "high");
-console.log (curr);
+// const pro = appModel.addProject("namePro");
+// const curr = appModel.getCurrentProject();
+// curr.addTodo("Test Todo", "This is a test", "2026-04-05", "high");
+// console.log (curr);
 
-console.log (appModel.projects);
-console.log (appModel.currentProjectID);
-const x = appModel.currentProjectID;
-console.log (x);
-appModel.deleteProject(x);
-console.log (appModel.projects);
+// console.log (appModel.projects);
+// console.log (appModel.currentProjectID);
+// const x = appModel.currentProjectID;
+// console.log (x);
+// appModel.deleteProject(x);
+// console.log (appModel.projects);
 
