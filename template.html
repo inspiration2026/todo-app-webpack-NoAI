@@ -11,7 +11,7 @@
             <h1>ToDo List</h1>
         </div>
         <div class="mid-list">
-            <button class="btn-new-task">New Task</button>
+            <button class="btn-new-task-tab">New Task</button>
             <ul>
                 <li class="tab-list" id="tab-all"><a class="tab">
                     <span class="icon"></span>All Tasks</a>
@@ -26,12 +26,25 @@
         </div>
         <div class="low-list">
             <h2>Projects <button class="btn-add-project" id="btn-add-project" title="Add Project">+</button></h2>
+                <form action="#" class="add-project-form" id="add-project-form">
+                    <div class="projectForm">
+                        <label for="newProjectName" class="labelProjectForm">Project Name:</label>
+                        <input type="text" id="newProjectName" class="inputProjectForm">
+                    </div>
+                    <div class="formProjectButtons">
+                        <button type="submit" class="form-project-btn" id="submit-form-project-btn">Add Project</button>
+                        <button type="button" class="form-project-btn" id="cancel-form-project-btn">Cancel</button>
+                    </div>
+                </form>
             <ul class="tab-projects" id="tab-projects"></ul>
         </div>
     </nav>
     <main>
         <div class="header">
-            <div class="projectName" id="projectName">project</div>
+            <div class="projectArea">
+                <div class="projectName" id="projectName">project</div>
+                <button class="btn-del-project" id="btn-del-project">Delete Project</button>
+            </div>
             <div class="headerButtons">
                 <button class="btn-new-task" id="btn-new-task">+ New Task</button>
                 <button class="mode" id="mode">Dark mode</button>
@@ -42,14 +55,32 @@
             <p>Made by Roman Suslov | The Odin Project</p>
         </div>
     </main>
-    <div class="addTodo-form-container">
+    <div class="addTodo-form-container" id="addTodo-form-container">
         <form action="#" id="addTodo-form">
-            <input type="text" id="title" class="inputTodoForm" placeholder="Task Name">
-            <input type="text" id="description" class="inputTodoForm" placeholder="Description">
-            <input type="date" id="dueDate" class="inputTodoForm" placeholder="Due Date">
-            <input type="text" id="title" class="inputTodoForm" placeholder="Task Name">
-            <button type="submit">Add Task</button>
-            <button type="button">Cancel</button>
+            <div class="formT">
+                <label for="formTitle" class="labelTodoForm">Title:</label>
+                <input type="text" id="formTitle" class="inputTodoForm" placeholder="Study">
+            </div>
+            <div class="formD1">
+                <label for="formDescription" class="labelTodoForm">Description:</label>
+                <input type="text" id="formDescription" class="inputTodoForm" placeholder="Evening class">
+            </div>
+            <div class="formD2">
+                <label for="formDueDate" class="labelTodoForm">Due Date:</label>
+                <input type="date" id="formDueDate" class="inputTodoForm">
+            </div>
+            <div class="priority-box">
+                <p class="priorityTitle">Choose priority:</p>
+                <div class="labels">
+                    <label><input type="radio" name="priority" value="high">High</label>
+                    <label><input type="radio" name="priority" value="medium" checked>Medium</label>
+                    <label><input type="radio" name="priority" value="low">Low</label>
+                </div>
+            </div>
+            <div class="formButtons">
+                <button type="submit" class="form-btn" id="submit-form-btn">Add Task</button>
+                <button type="button" class="form-btn" id="cancel-form-btn">Cancel</button>
+            </div>
         </form>
     </div>
     

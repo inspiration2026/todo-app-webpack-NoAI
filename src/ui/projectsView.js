@@ -13,6 +13,24 @@ export const projectsView = {
 
     clearProjectTab () {
         this.projectContainer.innerHTML = '';
+    },
+    showProjectForm() {
+        const projectForm = document.getElementById("add-project-form");
+        projectForm.style.display = ("flex");
+    },
+    hideProjectForm() {
+        const projectForm = document.getElementById("add-project-form");
+        projectForm.style.display = ("none");
+    },
+    resetProjectForm () {
+        const projectForm = document.getElementById("add-project-form");
+        projectForm.reset();
+    },
+    collectProjectInfo() {
+        const projectName = document.getElementById ("newProjectName").value.trim();
+        console.log(projectName);
+        return projectName;
+        
     }
     
 }

@@ -4,21 +4,22 @@ import { projectsView } from "../ui/projectsView.js";
 
 export const controller = {
     init() {
-        appModel.addProject("namePro");
-        appModel.addProject("Test2");
-        appModel.addProject("Test 3");
+        appModel.addProject("Study");
+        appModel.addProject("Workout");
+        appModel.addProject("Work");
         const curr = appModel.getCurrentProject();
-        curr.addTodo("Test Todo", "This is a test", "2026-04-05", "high");
-        curr.addTodo("Test Again", "test2", "2026-04-12", "low");
-        curr.addTodo("Test 3", "test3", "2026-04-12", "low");
-        curr.addTodo("Test 4", "test4", "2026-04-12", "low");
-        console.log (curr);
+        curr.addTodo("Test Code", "Run npm testing", "2026-04-05", "high");
+        curr.addTodo("Test Again", "simulate full App", "2026-04-12", "medium");
+        curr.addTodo("Git Commit All", "-", "2026-04-12", "low");
+        curr.addTodo("Upload project to Odin", "asap", "2026-04-12", "low");
         const todos = curr.getAllTodos();
-        todoView.renderTodos(todos);
+        todoView.renderTodos(todos, curr.projectName);
         const projects = appModel.getAllProjects();
         projectsView.renderProjects(projects);
 
         this.addEventListeners();
+        this.addTodoViaForm ();
+        this.addProjecViaForm ();
 
             
     },
@@ -31,21 +32,92 @@ export const controller = {
                 currentProject.deleteTodo (todoID);
                 todoView.clearTodos();
                 const todos = currentProject.getAllTodos();
-                todoView.renderTodos(todos);
+                todoView.renderTodos(todos, currentProject.projectName);
             } else if (e.target.closest(".list-projectName")) {
-                const currentProject = appModel.getCurrentProject();
                 const projectClicked = e.target.closest(".list-projectName");
                 const projectClickedID = projectClicked.dataset.id;
-                console.log(currentProject.id);
-                console.log(projectClickedID);
                 appModel.switchProject(projectClickedID);
                 todoView.clearTodos();
                 const newProject = appModel.getCurrentProject();
                 const todos = newProject.getAllTodos();
-                todoView.renderTodos(todos);
-                    
+                todoView.renderTodos(todos, newProject.projectName);  
+            } else if (e.target.closest("#btn-new-task")) {
+                todoView.showAddTodoForm();
+            } else if (e.target.closest(".btn-new-task-tab")) {
+                todoView.showAddTodoForm();
+            } else if (e.target.closest("#btn-del-project")) {
+                appModel.deleteCurrentProject();
+
+                const newProject = appModel.getCurrentProject();
+                const todos = newProject.getAllTodos();
+                todoView.clearTodos();
+                todoView.renderTodos(todos, newProject.projectName);
+
+                projectsView.clearProjectTab();
+                const projects = appModel.getAllProjects();
+                projectsView.renderProjects(projects);  
+            } else if (e.target.closest("#btn-add-project")) {
+                projectsView.showProjectForm();
             }
             
         });
+    },
+    addTodoViaForm () {
+        const todoForm = document.getElementById("addTodo-form");
+
+        const cancelBtn = document.getElementById ("cancel-form-btn");
+
+        cancelBtn.addEventListener ("click", (e) => {
+            todoView.hideAddTodoForm();
+            todoView.resetAddTodoForm();
+        });
+
+        todoForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const currentProject = appModel.getCurrentProject();
+
+            const newTodo = todoView.collectAddTodoInfo();
+            currentProject.addTodo(newTodo.title, newTodo.description, newTodo.dueDate, newTodo.priority);
+
+            todoView.hideAddTodoForm();
+            todoView.resetAddTodoForm();
+            
+            todoView.clearTodos();
+            const newProject = appModel.getCurrentProject();
+            const todos = newProject.getAllTodos();
+            todoView.renderTodos(todos, newProject.projectName);  
+        }
+    )},
+    addProjecViaForm () {
+        
+        const submitProjectButton = document.getElementById("submit-form-project-btn");
+        const cancelProjectButton = document.getElementById("cancel-form-project-btn");
+
+        cancelProjectButton.addEventListener ("click", (e) => {
+            projectsView.resetProjectForm();
+            projectsView.hideProjectForm();
+        })
+
+        submitProjectButton.addEventListener("click", (e) => {
+            const newProjectName = projectsView.collectProjectInfo();
+            appModel.addProject(newProjectName);
+
+            projectsView.resetProjectForm();
+            projectsView.hideProjectForm();
+
+            todoView.clearTodos();
+            projectsView.clearProjectTab();
+
+            const newProject = appModel.getCurrentProject();
+            const todos = newProject.getAllTodos();
+            todoView.renderTodos(todos, newProject.projectName);
+
+            const projects = appModel.getAllProjects();
+            projectsView.renderProjects(projects);
+
+        })
+
+
     }
 }

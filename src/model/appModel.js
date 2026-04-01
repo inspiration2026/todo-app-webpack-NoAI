@@ -30,14 +30,15 @@ export const appModel = {
     getAllProjects () {
         return this.projects;
     },
-
-    deleteProject (projectID) {
-        const index = this.projects.findIndex ( item => item.id === projectID);
-        console.log (index);
-        if (index !== -1) this.projects.splice(index,1);
-        if (projectID === this.currentProjectID) this.currentProjectID = null;
-        console.log (this.currentProjectID);
-    }
+    deleteCurrentProject() {
+        const index = this.projects.findIndex ( item => item.id === this.currentProjectID);
+        if ((index !== -1) && (this.projects.length > 1)) {
+            this.projects.splice(index,1);
+            this.currentProjectID = this.projects[0].id;
+            console.log(this.currentProjectID);
+            console.log(index) 
+            } else return;
+        }
 }
 
 

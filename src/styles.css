@@ -12,6 +12,7 @@ body {
     left: 0;
     top: 0;
     padding-left: 30px;
+    padding-right: 30px;
     height: 100vh;
     width: 300px;
 }
@@ -21,6 +22,37 @@ body {
 .btn-add-project {
     width: 30px;
     height: 30px;
+    
+}
+    
+.add-project-form {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    width: 100%;
+}
+.projectForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.labelProjectForm {
+    margin-bottom: 10px;
+}
+.formProjectButtons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+    padding: 10px;
+}
+.labelProjectForm {
+    padding: 10px;
+    height: 1.5rem;
 }
 
 main {
@@ -36,6 +68,10 @@ main {
     display: flex;
     justify-content: space-between;
 }
+.projectArea {
+    display: flex;
+    gap: 50px;
+}
 .headerButtons {
     display: flex;
 }
@@ -43,6 +79,7 @@ main {
     font-size: 32px;
 }
 .tasks {
+    flex: 1;
     padding: 20px;
 }
 .todo-container {
@@ -59,5 +96,46 @@ main {
     cursor: pointer;
 }
 .addTodo-form-container {
+    border: 2px solid blueviolet;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    color: rgb(0,0,0,0.7);
+}
+#addTodo-form {
+    border: 2px solid rgb(113, 127, 11);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: aqua;
+    z-index: 1000;
+
+}
+.formT, .formD1, .formD2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+.priority-box {
+    display: flex;
+    justify-content: space-between;
+    align-items:baseline;
+    margin-top: 10px;
+}
+.labels {
+    display: flex;
+    flex-direction: column;
+}
+.formButtons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+    padding: 10px;
+
 }
