@@ -6,16 +6,17 @@ export const controller = {
     init() {
         appModel.addProject("Study");
         appModel.addProject("Workout");
-        appModel.addProject("Work");
-        const curr = appModel.getCurrentProject();
+        let curr = appModel.getCurrentProject();
         curr.addTodo("Test Code", "Run npm testing", "2026-04-05", "high");
         curr.addTodo("Test Again", "simulate full App", "2026-04-12", "medium");
+        appModel.addProject("Work");
+        curr = appModel.getCurrentProject();
         curr.addTodo("Git Commit All", "-", "2026-04-12", "low");
         curr.addTodo("Upload project to Odin", "asap", "2026-04-12", "low");
         const todos = curr.getAllTodos();
         todoView.renderTodos(todos, curr.projectName);
         const projects = appModel.getAllProjects();
-        projectsView.renderProjects(projects);
+        projectsView.renderProjects(projects, appModel.currentProjectID);
 
         this.addEventListeners();
         this.addTodoViaForm ();
@@ -41,9 +42,10 @@ export const controller = {
                 const newProject = appModel.getCurrentProject();
                 const todos = newProject.getAllTodos();
                 todoView.renderTodos(todos, newProject.projectName);  
+                projectsView.clearProjectTab();
+                const projects = appModel.getAllProjects();
+                projectsView.renderProjects(projects, appModel.currentProjectID);  
             } else if (e.target.closest("#btn-new-task")) {
-                todoView.showAddTodoForm();
-            } else if (e.target.closest(".btn-new-task-tab")) {
                 todoView.showAddTodoForm();
             } else if (e.target.closest("#btn-del-project")) {
                 appModel.deleteCurrentProject();
@@ -55,11 +57,23 @@ export const controller = {
 
                 projectsView.clearProjectTab();
                 const projects = appModel.getAllProjects();
-                projectsView.renderProjects(projects);  
+                projectsView.renderProjects(projects, appModel.currentProjectID);  
             } else if (e.target.closest("#btn-add-project")) {
                 projectsView.showProjectForm();
             }
             
+        });
+        document.body.addEventListener('change', (e) => {
+            
+            if (e.target.classList.contains("isDoneCheckbox")) {
+                const todoElement = e.target.closest(".todo-container");
+                const todoID = todoElement.dataset.id;
+                const currentProject = appModel.getCurrentProject();
+                const status = currentProject.switchTodoisDone (todoID); 
+                
+                status?todoView.makeTodoCompleted(todoID):todoView.makeTodoActive(todoID);
+            }
+
         });
     },
     addTodoViaForm () {
@@ -114,10 +128,9 @@ export const controller = {
             todoView.renderTodos(todos, newProject.projectName);
 
             const projects = appModel.getAllProjects();
-            projectsView.renderProjects(projects);
+            projectsView.renderProjects(projects, appModel.currentProjectID);
 
         })
-
-
     }
+    
 }

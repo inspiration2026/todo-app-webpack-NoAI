@@ -1,5 +1,5 @@
 import { Project } from "./project.js";
-import { Todo } from "./todo.js";
+
 
 export const appModel = {
     projects: [],
@@ -30,6 +30,7 @@ export const appModel = {
     getAllProjects () {
         return this.projects;
     },
+    
     deleteCurrentProject() {
         const index = this.projects.findIndex ( item => item.id === this.currentProjectID);
         if ((index !== -1) && (this.projects.length > 1)) {
@@ -40,18 +41,4 @@ export const appModel = {
             } else return;
         }
 }
-
-
-
-// const pro = appModel.addProject("namePro");
-// const curr = appModel.getCurrentProject();
-// curr.addTodo("Test Todo", "This is a test", "2026-04-05", "high");
-// console.log (curr);
-
-// console.log (appModel.projects);
-// console.log (appModel.currentProjectID);
-// const x = appModel.currentProjectID;
-// console.log (x);
-// appModel.deleteProject(x);
-// console.log (appModel.projects);
 

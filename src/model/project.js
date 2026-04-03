@@ -13,6 +13,12 @@ export class Project {
         this.todos.push (newTodo);
     }
 
+    switchTodoisDone (TodoID) {
+        const index = this.todos.findIndex ( item => item.id === TodoID);
+        this.todos[index].isDone = !this.todos[index].isDone;
+        return this.todos[index].isDone;
+    }
+
     findTodoByID (TodoID) {
         const index = this.todos.findIndex ( item => item.id === TodoID);
         return index;

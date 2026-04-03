@@ -1,13 +1,16 @@
 export const projectsView = {
     projectContainer: document.getElementById("tab-projects"),
 
-    renderProjects (projects) {
+    renderProjects (projects, selectedProjectID) {
         projects.forEach(element => {
             const projectName = document.createElement("li");
             projectName.classList.add ("list-projectName");
             projectName.textContent = element.projectName;
             projectName.dataset.id = element.id;
             this.projectContainer.appendChild(projectName);
+            if (element.id === selectedProjectID) {
+                projectName.classList.add ("selected");
+            }
         });
     },
 

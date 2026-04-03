@@ -18,11 +18,22 @@ export const todoView = {
             const deleteTodo = document.createElement("button");
             deleteTodo.classList.add ("btn-deleteTodo");
             deleteTodo.textContent = "Delete";
+            const isDone = document.createElement ("input");
+            isDone.type = ("checkbox");
+            isDone.classList.add("isDoneCheckbox");
+            console.log(element.priority)
+            if (element.priority === "high") {
+                isDone.classList.add("high");
+            } else if (element.priority === "low") {
+                isDone.classList.add("low");
+            };
+
 
             todo.appendChild(title);
             todo.appendChild(description);
             todo.appendChild(dueDate);
             todo.appendChild(deleteTodo);
+            todo.prepend(isDone);
 
             this.tasksContainer.appendChild(todo);
             
@@ -53,5 +64,13 @@ export const todoView = {
         const priority = document.querySelector ('input[name="priority"]:checked').value;
 
         return {title, description, dueDate, priority};
+    },
+    makeTodoCompleted (todoID) {
+        const todo = document.querySelector(`[data-id="${todoID}"]`)
+        todo.classList.add("completed");
+    },
+    makeTodoActive (todoID) {
+        const todo = document.querySelector(`[data-id="${todoID}"]`)
+        todo.classList.remove("completed");
     }
 }
