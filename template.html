@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>ToDo List</title>
 </head>
 <body>
     <nav class="sidebar">
@@ -15,7 +15,12 @@
                 <form action="#" class="add-project-form" id="add-project-form">
                     <div class="projectForm">
                         <label for="newProjectName" class="labelProjectForm">Project Name:</label>
-                        <input type="text" id="newProjectName" class="inputProjectForm">
+                        <input 
+                        type="text" 
+                        maxlength="18" 
+                        id="newProjectName" 
+                        class="inputProjectForm" 
+                        required>
                     </div>
                     <div class="formProjectButtons">
                         <button type="submit" class="form-project-btn" id="submit-form-project-btn">Add Project</button>
@@ -33,7 +38,7 @@
             </div>
             <div class="headerButtons">
                 <button class="btn-new-task" id="btn-new-task">+ New Task</button>
-                <button class="mode" id="mode">Dark mode</button>
+                <button class="mode" id="mode">☀️ 🌙</button>
             </div>
         </div>
         <div class="tasks" id="tasks"></div>
@@ -45,15 +50,15 @@
         <form action="#" id="addTodo-form">
             <div class="formT">
                 <label for="formTitle" class="labelTodoForm">Title:</label>
-                <input type="text" id="formTitle" class="inputTodoForm" placeholder="Study">
+                <input type="text" maxlength="20" required id="formTitle" class="inputTodoForm" placeholder="Study">
             </div>
             <div class="formD1">
                 <label for="formDescription" class="labelTodoForm">Description:</label>
-                <input type="text" id="formDescription" class="inputTodoForm" placeholder="Evening class">
+                <input type="text" maxlength="30" id="formDescription" class="inputTodoForm" placeholder="Evening class">
             </div>
             <div class="formD2">
                 <label for="formDueDate" class="labelTodoForm">Due Date:</label>
-                <input type="date" id="formDueDate" class="inputTodoForm">
+                <input type="date" required id="formDueDate" class="inputTodoForm">
             </div>
             <div class="priority-box">
                 <p class="priorityTitle">Choose priority:</p>

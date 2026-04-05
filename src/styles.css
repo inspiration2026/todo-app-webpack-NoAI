@@ -1,13 +1,43 @@
 * {
     box-sizing: border-box;
 }
+:root {
+    --sidebar: rgb(103, 219, 248);
+    --sidebar-hover: rgb(87, 186, 210);
+    --main: rgb(226, 245, 249);
+    --buttons: rgb(152, 215, 231);
+    --buttons-hover: rgb(114, 179, 195);
+    --todos: rgb(167, 222, 241);
+    --todos-hover: rgb(138, 187, 203);
+    --todo-del-btn: aquamarine;
+    --todo-del-btn-hover: rgb(77, 227, 177);
+    --text: black;
+}
+.dark {
+    --sidebar: rgb(25, 55, 80);
+    --sidebar-hover: rgb(35, 75, 105);
+    --main: rgb(18, 35, 52);
+    --buttons: rgb(80, 190, 220);
+    --buttons-hover: rgb(65, 165, 195);
+    --todos: rgb(35, 70, 95);
+    --todos-hover: rgb(45, 85, 115);
+    --todo-del-btn: rgb(255, 95, 95);
+    --todo-del-btn-hover: rgb(240, 70, 70);
+    --text: rgb(241, 245, 255);
+    --border: rgb(51, 65, 85);
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--text);
     margin: 0;
     display: flex;
+    
+}
+.heading {
+    color: goldenrod;
 }
 .sidebar {
-    background-color: lightblue;
+    background-color: var(--sidebar);
     position: fixed;
     left: 0;
     top: 0;
@@ -18,11 +48,22 @@ body {
 }
 .tab-list, .list-projectName {
     list-style: none;
+    padding: 5px;
+    padding-left: 20px;
+    border-radius: 12px;
+    margin-top: 5px;
+    transition: all 0.2s ease;
+}
+.list-projectName:hover {
+    scale: 1.05;
+    background-color: var(--sidebar-hover);
 }
 .btn-add-project {
     width: 30px;
     height: 30px;
-    
+}
+.tab-projects {
+    padding: 20px;
 }
     
 .add-project-form {
@@ -30,7 +71,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+    background-color: var(--main);
     width: 100%;
 }
 .projectForm {
@@ -63,10 +104,16 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: var(--main);
 }
 .header {
     display: flex;
     justify-content: space-between;
+}
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
 }
 .projectArea {
     display: flex;
@@ -77,9 +124,44 @@ main {
     gap: 20px;
    
 }
-.headerButtons>* {
-     border-radius: 12px/15px;
+#btn-new-task {
+    border-radius: 12px;
+    padding: 12px 24px;
+    border: none;
+    background-color: var(--buttons);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
+#btn-new-task:hover {
+    background-color: var(--buttons-hover);
+}
+#mode {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    background-color: var(--buttons);
+}
+#mode:hover {
+    background-color: var(--buttons-hover);
+}
+#mode:active {
+    border: none;
+}
+.btn-del-project {
+    border-radius: 12px;
+    padding: 12px 24px;
+    border: 1px solid var(--border);
+    font-weight: 200;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--todo-del-btn);
+}
+.btn-del-project:hover {
+    background-color: var(--todo-del-btn-hover);
+}
+
 .projectName {
     font-size: 32px;
 }
@@ -93,27 +175,35 @@ main {
 .todo-container {
     height: 50px;
     padding: 10px;
-    border: 2px solid lightgreen;
+    background-color: var(--todos);
     display: flex;
     flex-shrink: 0;
     align-items: center;
     gap: 10px;
-    border-radius: 12px/15px;
+    border-radius: 12px;
     min-width: max-content;
     max-width: 80%;
+    cursor: pointer;
+    transition: all 0.2s ease;
     
+}
+.todo-container:hover {
+    background-color: var(--todos-hover);
+    scale: 1.05;
 }
 .todo-container>* {
     display: flex;
     justify-content: space-between;
-    /* flex-shrink: 0; */
 }
 .list-projectName {
     font-size: 20px;
     cursor: pointer;
 }
+.add-project-form {
+    border-radius: 12px;
+    border: 2px solid var(--todo-del-btn);
+}
 .addTodo-form-container {
-    border: 2px solid blueviolet;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -124,13 +214,13 @@ main {
     color: rgb(0,0,0,0.7);
 }
 #addTodo-form {
-    border: 2px solid rgb(113, 127, 11);
+    border: 2px solid var(--sidebar);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: aqua;
+    background-color: var(--main);
     z-index: 1000;
-
+    border-radius: 12px;
 }
 .formT, .formD1, .formD2 {
     display: flex;
@@ -164,6 +254,10 @@ main {
     margin-right: 10px;
     display: flex;
     flex-shrink: 0;
+    cursor: pointer;
+}
+.isDoneCheckbox:hover {
+    scale: 1.2;
 }
 .isDoneCheckbox:checked, .isDoneCheckbox.high:checked, .isDoneCheckbox.low:checked  {
     border: 3px solid rgb(110, 110, 110, 0.75);
@@ -191,12 +285,44 @@ main {
 }
 .btn-deleteTodo {
     border: none;
-    background-color: aquamarine;
+    background-color: var(--todo-del-btn);
     flex: 0;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
 }
-.btn-del-project {
-    border-radius: 12px/15px;
+.btn-deleteTodo:hover {
+    background-color: var(--todo-del-btn-hover);
+}
+.btn-del-project:hover {
+    border: 1px solid var(--border);
+    font-weight: 500;
 }
 .selected {
-    background-color: rgb(37, 166, 241);
+    background-color: var(--sidebar-hover);
+}
+.low-list>h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#btn-add-project {
+    border: none;
+    background-color: var(--sidebar);
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    opacity: 10%;
+    cursor: pointer;
+    color: var(--text);
+}
+#btn-add-project:hover {
+    opacity: 70%;
+    background-color: var(--sidebar);
+}
+.todo-description {
+    flex: 1;
+}
+.todo-dueDate {
+    flex: 1;
 }

@@ -21,6 +21,7 @@ export const controller = {
         this.addEventListeners();
         this.addTodoViaForm ();
         this.addProjecViaForm ();
+        this.darkMode();
 
             
     },
@@ -130,6 +131,12 @@ export const controller = {
             const projects = appModel.getAllProjects();
             projectsView.renderProjects(projects, appModel.currentProjectID);
 
+        })
+    },
+    darkMode () {
+        const mode = document.getElementById("mode");
+        mode.addEventListener ("click", (e) => {
+            document.body.classList.toggle ("dark");
         })
     }
     
