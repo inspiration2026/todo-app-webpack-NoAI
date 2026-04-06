@@ -9,9 +9,12 @@
     --buttons-hover: rgb(114, 179, 195);
     --todos: rgb(167, 222, 241);
     --todos-hover: rgb(138, 187, 203);
-    --todo-del-btn: aquamarine;
+    --todo-del-btn: rgb(164, 141, 254);
     --todo-del-btn-hover: rgb(77, 227, 177);
     --text: black;
+    --icon: "🌙";
+    --add-btn: rgb(251, 209, 59);
+    --add-btn-hover: rgb(198, 164, 41);
 }
 .dark {
     --sidebar: rgb(25, 55, 80);
@@ -25,6 +28,8 @@
     --todo-del-btn-hover: rgb(240, 70, 70);
     --text: rgb(241, 245, 255);
     --border: rgb(51, 65, 85);
+    --icon: "☀️";
+    --add-btn: rgb(175, 172, 1);
 }
 body {
     font-family: 'Times New Roman', Times, serif;
@@ -128,23 +133,27 @@ main {
     border-radius: 12px;
     padding: 12px 24px;
     border: none;
-    background-color: var(--buttons);
-    font-weight: 500;
+    background-color: var(--add-btn);
     cursor: pointer;
     transition: all 0.2s ease;
+    color: var(--text);
 }
 #btn-new-task:hover {
-    background-color: var(--buttons-hover);
+    background-color: var(--add-btn-hover);
 }
 #mode {
     border: 1px solid var(--border);
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
-    background-color: var(--buttons);
+    background-color: var(--main);
+    
+}
+#mode::before {
+    content: var(--icon);
 }
 #mode:hover {
-    background-color: var(--buttons-hover);
+    background-color: var(--todos-hover);
 }
 #mode:active {
     border: none;
@@ -153,6 +162,7 @@ main {
     border-radius: 12px;
     padding: 12px 24px;
     border: 1px solid var(--border);
+    color: var(--text);
     font-weight: 200;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -160,6 +170,8 @@ main {
 }
 .btn-del-project:hover {
     background-color: var(--todo-del-btn-hover);
+    border: 1px solid var(--border);
+    font-weight: 500;
 }
 
 .projectName {
@@ -201,7 +213,8 @@ main {
 }
 .add-project-form {
     border-radius: 12px;
-    border: 2px solid var(--todo-del-btn);
+    border: 2px solid var(--border);
+    background-color: var(--main);
 }
 .addTodo-form-container {
     display: none;
@@ -211,14 +224,14 @@ main {
     position: fixed;
     z-index: 10;
     inset: 0;
-    color: rgb(0,0,0,0.7);
+    color: var(--text);
 }
 #addTodo-form {
     border: 2px solid var(--sidebar);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: var(--main);
+    background-color: var(--sidebar);
     z-index: 1000;
     border-radius: 12px;
 }
@@ -227,6 +240,17 @@ main {
     justify-content: space-between;
     margin-top: 10px;
     gap: 10px;
+}
+form button {
+    background-color: var(--buttons);
+    color: var(--text);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
 }
 .priority-box {
     display: flex;
@@ -286,18 +310,16 @@ main {
 .btn-deleteTodo {
     border: none;
     background-color: var(--todo-del-btn);
-    flex: 0;
+    color: var(--text);
     padding: 5px;
+    margin-left: 40px;
     border-radius: 10px;
     cursor: pointer;
 }
 .btn-deleteTodo:hover {
     background-color: var(--todo-del-btn-hover);
 }
-.btn-del-project:hover {
-    border: 1px solid var(--border);
-    font-weight: 500;
-}
+
 .selected {
     background-color: var(--sidebar-hover);
 }
@@ -321,8 +343,27 @@ main {
     background-color: var(--sidebar);
 }
 .todo-description {
-    flex: 1;
+    overflow-wrap: normal;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+
 }
 .todo-dueDate {
     flex: 1;
+    justify-content: right;
+}
+#formDescription {
+    height: 70px;
+}
+#submit-form-btn {
+    display: flex;
+    background-color: var(--add-btn);
+}
+#edit-form-btn {
+    display: none;
+    background-color: var(--add-btn);
+}
+#submit-form-project-btn {
+    background-color: var(--add-btn);
 }

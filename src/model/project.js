@@ -38,6 +38,18 @@ export class Project {
         console.log(typeof(TodoID));
         if (index !== -1) this.todos.splice(index,1);
     }
+
+    updateTodo (newTitle, newDescription, newDueDate, newPriority, TodoID) {
+        const index = this.findTodoByID (TodoID);
+
+        if (newTitle !== undefined) this.todos[index].title = newTitle;
+        if (newDescription !== undefined) this.todos[index].description = newDescription;
+        if (newDueDate !== undefined) this.todos[index].dueDate = newDueDate;
+        if (newPriority !== undefined) this.todos[index].priority = newPriority;
+
+    }
+
+   
 }
 
 

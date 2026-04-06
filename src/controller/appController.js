@@ -19,9 +19,8 @@ export const controller = {
         projectsView.renderProjects(projects, appModel.currentProjectID);
 
         this.addEventListeners();
-        this.addTodoViaForm ();
         this.addProjecViaForm ();
-        this.darkMode();
+        document.body.classList.toggle ("dark");
 
             
     },
@@ -61,35 +60,49 @@ export const controller = {
                 projectsView.renderProjects(projects, appModel.currentProjectID);  
             } else if (e.target.closest("#btn-add-project")) {
                 projectsView.showProjectForm();
-            }
-            
-        });
-        document.body.addEventListener('change', (e) => {
-            
-            if (e.target.classList.contains("isDoneCheckbox")) {
+            } else  if (e.target.classList.contains("isDoneCheckbox")) {
                 const todoElement = e.target.closest(".todo-container");
                 const todoID = todoElement.dataset.id;
                 const currentProject = appModel.getCurrentProject();
                 const status = currentProject.switchTodoisDone (todoID); 
                 
                 status?todoView.makeTodoCompleted(todoID):todoView.makeTodoActive(todoID);
+
+            } else if (e.target.closest (".todo-container")) {
+                const todoClicked = e.target.closest(".todo-container");
+                const todoClickedID = todoClicked.dataset.id;
+                const currentProject = appModel.getCurrentProject();
+                const todo = currentProject.getTodoByID (todoClickedID);
+
+                todoView.displayTodo (todo); 
+                const form = document.getElementById("addTodo-form");
+                form.dataset.id = todoClickedID;
             }
-
         });
-    },
-    addTodoViaForm () {
+        const editBtn = document.getElementById("edit-form-btn");
+        editBtn.addEventListener ("click", (e) => {
+            e.preventDefault();
+            const form = document.getElementById("addTodo-form");
+            const TodoID = form.dataset.id;
+            this.submitEditTodo(TodoID);
+        });
         const todoForm = document.getElementById("addTodo-form");
-
         const cancelBtn = document.getElementById ("cancel-form-btn");
-
         cancelBtn.addEventListener ("click", (e) => {
             todoView.hideAddTodoForm();
             todoView.resetAddTodoForm();
         });
-
         todoForm.addEventListener("submit", (e) => {
             e.preventDefault();
+            this.addTodoViaForm();
+        });
+        const mode = document.getElementById("mode");
+        mode.addEventListener ("click", (e) => {
+            this.darkMode();
+        })
 
+    },
+    addTodoViaForm () {
             const currentProject = appModel.getCurrentProject();
 
             const newTodo = todoView.collectAddTodoInfo();
@@ -102,8 +115,7 @@ export const controller = {
             const newProject = appModel.getCurrentProject();
             const todos = newProject.getAllTodos();
             todoView.renderTodos(todos, newProject.projectName);  
-        }
-    )},
+        },
     addProjecViaForm () {
         
         const submitProjectButton = document.getElementById("submit-form-project-btn");
@@ -115,6 +127,7 @@ export const controller = {
         })
 
         submitProjectButton.addEventListener("click", (e) => {
+            e.preventDefault();
             const newProjectName = projectsView.collectProjectInfo();
             appModel.addProject(newProjectName);
 
@@ -134,10 +147,25 @@ export const controller = {
         })
     },
     darkMode () {
-        const mode = document.getElementById("mode");
-        mode.addEventListener ("click", (e) => {
             document.body.classList.toggle ("dark");
-        })
+    },
+    submitEditTodo (TodoID) {
+            const currentProject = appModel.getCurrentProject();
+            const editedTodo = todoView.collectAddTodoInfo();
+            currentProject.updateTodo (
+                editedTodo.title, 
+                editedTodo.description, 
+                editedTodo.dueDate, 
+                editedTodo.priority, 
+                TodoID
+            );
+
+            todoView.hideAddTodoForm();
+            todoView.resetAddTodoForm();
+            
+            todoView.clearTodos();
+            const todos = currentProject.getAllTodos();
+            todoView.renderTodos(todos, currentProject.projectName);  
     }
     
 }

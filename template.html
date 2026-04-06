@@ -38,7 +38,7 @@
             </div>
             <div class="headerButtons">
                 <button class="btn-new-task" id="btn-new-task">+ New Task</button>
-                <button class="mode" id="mode">☀️ 🌙</button>
+                <button class="mode" id="mode"></button>
             </div>
         </div>
         <div class="tasks" id="tasks"></div>
@@ -54,7 +54,7 @@
             </div>
             <div class="formD1">
                 <label for="formDescription" class="labelTodoForm">Description:</label>
-                <input type="text" maxlength="30" id="formDescription" class="inputTodoForm" placeholder="Evening class">
+                <textarea type="text" id="formDescription" class="inputTodoForm" placeholder="Evening class"></textarea> 
             </div>
             <div class="formD2">
                 <label for="formDueDate" class="labelTodoForm">Due Date:</label>
@@ -70,6 +70,7 @@
             </div>
             <div class="formButtons">
                 <button type="submit" class="form-btn" id="submit-form-btn">Add Task</button>
+                <button type="submit" class="form-btn" id="edit-form-btn">Edit</button>
                 <button type="button" class="form-btn" id="cancel-form-btn">Cancel</button>
             </div>
         </form>
