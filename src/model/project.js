@@ -1,4 +1,5 @@
 import { Todo } from "./todo.js";
+import {format, addDays, subDays, isToday, isTomorrow, isPast, parseISO} from 'date-fns';
 
 export class Project {
     constructor (projectName) {
@@ -49,6 +50,21 @@ export class Project {
 
     }
 
+    checkIfOverdue () {
+        const Today = new Date();
+        console.log(Today);
+        this.todos.forEach ((todo) => {
+            const dueDate = parseISO (todo.dueDate);
+            if ((!todo.isDone) && (isPast(dueDate))) {todo.isExpired = true} 
+                else if ((!todo.isDone) && (!isPast(dueDate))) {todo.isExpired = false};
+            console.log(!todo.isDone);
+            console.log(isPast(dueDate));
+            console.log(dueDate);
+            console.log(todo.isExpired);
+            
+        })
+
+    }
    
 }
 

@@ -5,14 +5,14 @@ import { projectsView } from "../ui/projectsView.js";
 export const controller = {
     init() {
         appModel.addProject("Study");
-        appModel.addProject("Workout");
         let curr = appModel.getCurrentProject();
-        curr.addTodo("Test Code", "Run npm testing", "2026-04-05", "high");
-        curr.addTodo("Test Again", "simulate full App", "2026-04-12", "medium");
+        curr.addTodo("Git Commit All", "-", "2026-04-12", "medium");
+        curr.addTodo("Upload project to Odin", "asap", "2026-09-12", "low");
         appModel.addProject("Work");
         curr = appModel.getCurrentProject();
-        curr.addTodo("Git Commit All", "-", "2026-04-12", "low");
-        curr.addTodo("Upload project to Odin", "asap", "2026-04-12", "low");
+        curr.addTodo("Test Code", "Run npm testing", "2026-11-05", "high");
+        curr.addTodo("Test Again", "simulate full App", "2026-10-12", "medium");
+        curr.checkIfOverdue();
         const todos = curr.getAllTodos();
         todoView.renderTodos(todos, curr.projectName);
         const projects = appModel.getAllProjects();
@@ -22,7 +22,6 @@ export const controller = {
         this.addProjecViaForm ();
         document.body.classList.toggle ("dark");
 
-            
     },
     addEventListeners() {
         document.body.addEventListener('click', (e) => {
@@ -41,6 +40,7 @@ export const controller = {
                 todoView.clearTodos();
                 const newProject = appModel.getCurrentProject();
                 const todos = newProject.getAllTodos();
+                newProject.checkIfOverdue();
                 todoView.renderTodos(todos, newProject.projectName);  
                 projectsView.clearProjectTab();
                 const projects = appModel.getAllProjects();
@@ -113,6 +113,7 @@ export const controller = {
             
             todoView.clearTodos();
             const newProject = appModel.getCurrentProject();
+            newProject.checkIfOverdue();
             const todos = newProject.getAllTodos();
             todoView.renderTodos(todos, newProject.projectName);  
         },
@@ -164,6 +165,7 @@ export const controller = {
             todoView.resetAddTodoForm();
             
             todoView.clearTodos();
+            currentProject.checkIfOverdue();
             const todos = currentProject.getAllTodos();
             todoView.renderTodos(todos, currentProject.projectName);  
     }

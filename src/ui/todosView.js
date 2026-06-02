@@ -1,3 +1,5 @@
+import {format, addDays, subDays, isToday, isTomorrow, isPast, parseISO} from 'date-fns';
+
 export const todoView = {
     tasksContainer: document.getElementById("tasks"),
 
@@ -14,7 +16,7 @@ export const todoView = {
             description.textContent = element.description;
             const dueDate = document.createElement("p");
             dueDate.classList.add ("todo-dueDate");
-            dueDate.textContent = element.dueDate;
+            dueDate.textContent = format(element.dueDate, 'MMM dd, yyyy');
             const deleteTodo = document.createElement("button");
             deleteTodo.classList.add ("btn-deleteTodo");
             deleteTodo.textContent = "Delete";
@@ -26,6 +28,7 @@ export const todoView = {
             } else if (element.priority === "low") {
                 isDone.classList.add("low");
             };
+            if (element.isExpired === true) {todo.classList.add ("overdue")};
 
 
             todo.appendChild(title);

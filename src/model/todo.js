@@ -1,3 +1,4 @@
+
 export class Todo {
     constructor (title, description, dueDate, priority) {
         this.title = title;
@@ -6,7 +7,9 @@ export class Todo {
         this.priority = priority;
         this.id = crypto.randomUUID();
         this.isDone = false;
+        this.isExpired = false;
     }
+
     update (newTitle, newDescription, newDueDate, newPriority) {
     if (newTitle !== undefined) this.title = newTitle;
     if (newDescription !== undefined) this.description = newDescription;
