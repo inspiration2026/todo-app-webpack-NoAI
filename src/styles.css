@@ -15,6 +15,7 @@
     --icon: "🌙";
     --add-btn: rgb(251, 209, 59);
     --add-btn-hover: rgb(198, 164, 41);
+    --overdue: rgb(200, 102, 102);
 }
 .dark {
     --sidebar: rgb(25, 55, 80);
@@ -30,6 +31,7 @@
     --border: rgb(51, 65, 85);
     --icon: "☀️";
     --add-btn: rgb(175, 172, 1);
+    --overdue: rgba(234, 31, 31);
 }
 body {
     font-family: 'Times New Roman', Times, serif;
@@ -368,6 +370,6 @@ form button {
     background-color: var(--add-btn);
 }
 .overdue {
-    border: 1px solid rgba(234, 31, 31);
-    box-shadow: inset 0 5px 15px 2px rgba(234, 31, 31);
+    border: 1px solid var(--overdue);
+    box-shadow: inset 0 5px 15px 2px var(--overdue);
 }

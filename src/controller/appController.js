@@ -4,14 +4,21 @@ import { projectsView } from "../ui/projectsView.js";
 
 export const controller = {
     init() {
-        appModel.addProject("Study");
+
+        // appModel.wipeStorageData ();
+
+        appModel.init ();
+        this.loadTheme ();
+
+        if (appModel.projects.length === 0) {
+            this.defaultData();
+        }
+
         let curr = appModel.getCurrentProject();
-        curr.addTodo("Git Commit All", "-", "2026-04-12", "medium");
-        curr.addTodo("Upload project to Odin", "asap", "2026-09-12", "low");
-        appModel.addProject("Work");
-        curr = appModel.getCurrentProject();
-        curr.addTodo("Test Code", "Run npm testing", "2026-11-05", "high");
-        curr.addTodo("Test Again", "simulate full App", "2026-10-12", "medium");
+
+        
+
+
         curr.checkIfOverdue();
         const todos = curr.getAllTodos();
         todoView.renderTodos(todos, curr.projectName);
@@ -20,7 +27,7 @@ export const controller = {
 
         this.addEventListeners();
         this.addProjecViaForm ();
-        document.body.classList.toggle ("dark");
+        
 
     },
     addEventListeners() {
@@ -30,6 +37,7 @@ export const controller = {
                 const todoID = todoElement.dataset.id;
                 const currentProject = appModel.getCurrentProject();
                 currentProject.deleteTodo (todoID);
+                appModel.saveToStorage ();
                 todoView.clearTodos();
                 const todos = currentProject.getAllTodos();
                 todoView.renderTodos(todos, currentProject.projectName);
@@ -49,6 +57,7 @@ export const controller = {
                 todoView.showAddTodoForm();
             } else if (e.target.closest("#btn-del-project")) {
                 appModel.deleteCurrentProject();
+                appModel.saveToStorage ();
 
                 const newProject = appModel.getCurrentProject();
                 const todos = newProject.getAllTodos();
@@ -99,6 +108,7 @@ export const controller = {
         const mode = document.getElementById("mode");
         mode.addEventListener ("click", (e) => {
             this.darkMode();
+            appModel.saveToStorage ();
         })
 
     },
@@ -107,6 +117,7 @@ export const controller = {
 
             const newTodo = todoView.collectAddTodoInfo();
             currentProject.addTodo(newTodo.title, newTodo.description, newTodo.dueDate, newTodo.priority);
+            appModel.saveToStorage();
 
             todoView.hideAddTodoForm();
             todoView.resetAddTodoForm();
@@ -131,6 +142,7 @@ export const controller = {
             e.preventDefault();
             const newProjectName = projectsView.collectProjectInfo();
             appModel.addProject(newProjectName);
+            appModel.saveToStorage ();
 
             projectsView.resetProjectForm();
             projectsView.hideProjectForm();
@@ -149,6 +161,7 @@ export const controller = {
     },
     darkMode () {
             document.body.classList.toggle ("dark");
+            this.saveTheme ();
     },
     submitEditTodo (TodoID) {
             const currentProject = appModel.getCurrentProject();
@@ -160,6 +173,7 @@ export const controller = {
                 editedTodo.priority, 
                 TodoID
             );
+            appModel.saveToStorage ();
 
             todoView.hideAddTodoForm();
             todoView.resetAddTodoForm();
@@ -168,6 +182,33 @@ export const controller = {
             currentProject.checkIfOverdue();
             const todos = currentProject.getAllTodos();
             todoView.renderTodos(todos, currentProject.projectName);  
+    },
+    defaultData () {
+        appModel.addProject("Study");
+        let curr = appModel.getCurrentProject();
+        curr.addTodo("Git Commit All", "-", "2026-04-12", "medium");
+        curr.addTodo("Upload project to Odin", "asap", "2026-09-12", "low");
+        appModel.addProject("Work");
+        curr = appModel.getCurrentProject();
+        curr.addTodo("Test Code", "Run npm testing", "2026-11-05", "high");
+        curr.addTodo("Test Again", "simulate full App", "2026-10-12", "medium");
+
+        document.body.classList.toggle ("dark");
+        this.saveTheme ();
+    
+    },
+
+    saveTheme () {
+        appModel.colorScheme = document.body.classList.contains ("dark") ? "dark" : "light";
+        appModel.saveToStorage ();
+    },
+
+    loadTheme () {
+        if (appModel.colorScheme === "dark") {
+            document.body.classList.add ("dark");
+        } else {
+            document.body.classList.remove ("dark");
+        }
     }
     
 }
